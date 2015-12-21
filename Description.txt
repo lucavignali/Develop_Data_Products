@@ -1,0 +1,9 @@
+### Apply Local Polinomial Regression Model to your Data
+
+In this Shiny App, we apply Local Ploynomial Regression Analysis (*loess*) to your selected data set. in the **Select Variables** panel you can upload your Comma Separated Value file with Header and choose one Predictor and one Outcome from selected columns. Maximum file size is 1MByte.
+The aim of this App is to verify if the Prediction and Outcome of your dataset couple of columns can be reasonably modeled by loess prediction.
+
+When you have selected your Predictor and Outcome, please click *Enter* and move to the following tab **Prediction**. Be sure you select numerical values for both Predictor and Outcome.
+
+In prediction tab you can see the scatter plot of the Predictor in X-axis and Outcome in Y-axis, with the loess based prediction. You can also see red dots that represents the fitted values. You can select the level of confidence of the loess prediction (default is 0.95) and check the prediction "area". Remember to click the *Calculate and Plot Prediction Area* to update the graph. Below the scatter plot you can see a plot of Residuals to have a sense of heteroscedasticity in the outcome variable.
+
