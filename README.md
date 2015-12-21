@@ -9,4 +9,4 @@ The Source Code consists of:
 
 The Shiny App is available here: [Course Shiny App.](https://lvignali.shinyapps.io/myfirstapp)
 
-
+Moreover you can find the Rstudio Presenter source code used to generate the presentation ([see here](http://rpubs.com/lvignali/136199)) of the Shiny App.

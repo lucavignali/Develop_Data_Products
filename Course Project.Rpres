@@ -1,0 +1,61 @@
+Regression Analysis with Local Polynomial Regression Model - loess
+========================================================
+author: Luca Vignali
+date: 
+
+
+
+How to Apply loess to your data
+========================================================
+
+- In this App, we apply Local Ploynomial Regression Analysis (*loess*)to your selected data set.
+- In the **Select variables** page first Select your file. it must be .csv, with header and maximum 1Mbyte size. You can download the mtcars.csv if you don't have any .cvs file ready.
+- Once you have uploaded it, you can see your data in a tabular format in the same page.
+- Before running the model, select the Predictor and the Outcome typing the column name in the appropriate box.
+- Finally push the Enter button and move to the Prediction Page.
+
+
+View your Data and Prediction Outcome
+========================================================
+- In the **Prediction Page** you can see two graphs: plot of your data and prediction and the Residual plot.
+- In the uppermost picture you can see your data, the predicted values in red and the grey prediction area that is tuned based on the Level of Confidence value you can select or input.
+- Below, you can see the Residuals plot to have a sense of the heteroscedasticity of the Outcome.
+- An example of the output is provided in the next slide.
+- In the next slides, just for example, please have a look at the Outcome in the case we want to predict Miles per Gallon from Horse Power, values from the mtcars data set in R. The level of confidence is set to 0.95. 
+
+R code Example from mtcars data set
+========================================================
+```{r, eval = FALSE}
+library(caret);library(ggplot2);library(Rmisc)
+newdata <- data.frame(hp=c(mtcars$hp))
+lm_model <- train(mpg ~ hp, data = mtcars, method = "gamLoess")
+conf <- predict(lm_model$finalModel, newdata, interval="confidence")
+newdata2 <- cbind(newdata,conf)
+g <- ggplot(data = mtcars, aes(hp,mpg)) + geom_point()
+g <- g + geom_smooth(method="loess", level = 0.95, linetype = 0)
+g <- g + geom_point(data=newdata2, aes(x=hp,y=conf), col="red")
+df <- data.frame(x = lm_model$finalModel$fitted.values, ydf = lm_model$finalModel$residuals)
+g2 <- ggplot(df,aes(x,ydf)) + geom_point() +
+      labs(x = "mpg Fitted Values", y = "Residuals")
+multiplot(g,g2,cols=2)
+```
+
+App output example from mtcars data set
+========================================================
+```{r, echo = FALSE, fig.width = 14}
+library(caret);library(ggplot2);library(Rmisc)
+mt <- mtcars
+newdata <- data.frame(hp=c(mtcars$hp))
+lm_model <- train(mpg ~ hp, data = mt, method = "gamLoess")
+conf <- predict(lm_model$finalModel, newdata, interval="confidence")
+newdata2 <- cbind(newdata,conf)
+g <- ggplot(data = mt, aes(hp,mpg)) + geom_point()
+g <- g + geom_smooth(method="loess", level = 0.95, linetype = 0)
+g <- g + geom_point(data=newdata2, aes(x=hp,y=conf), col="red")
+df <- data.frame(x = lm_model$finalModel$fitted.values, ydf = lm_model$finalModel$residuals)
+g2 <- ggplot(df,aes(x,ydf)) + geom_point() +
+      labs(x = "mpg Fitted Values", y = "Residuals")
+multiplot(g,g2,cols=2)
+```
+
+
